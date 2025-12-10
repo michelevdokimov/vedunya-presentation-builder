@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Слайд 6: AI Governance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#050505',
+                            dark: '#121212',
+                            panel: '#151515',
+                            mint: '#00FF9D',
+                            forest: '#1B4D3E',
+                            purple: '#8B5CF6', /* Analytics Accent */
+                            gray: '#B0B0B0',
+                            white: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'governance-glow': 'radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 60%)', /* Subtle Purple for Intelligence */
+                        'grid-pattern': "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23333' fill-opacity='0.2' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E\")"
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        'neon-mint': '0 0 10px rgba(0, 255, 157, 0.2)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bar-grow': 'growBar 1.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        growBar: {
+                            '0%': { height: '0%' },
+                            '100%': { height: 'var(--target-height)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #FFFFFF;
+            overflow: hidden;
+        }
+
+        .noise-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient-white {
+            background: linear-gradient(135deg, #FFFFFF 0%, #B0B0B0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar for dashboard list */
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative font-sans selection:bg-brand-mint selection:text-black">
+
+    <!-- Background Layers -->
+    <div class="absolute inset-0 bg-grid-pattern opacity-30 z-0"></div>
+    <div class="absolute top-0 right-0 w-2/3 h-2/3 bg-governance-glow z-0"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Main Container -->
+    <div class="w-full max-w-[1200px] px-12 relative z-10 flex flex-col justify-center h-screen py-10">
+        
+        <!-- Header -->
+        <div class="w-full mb-12">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                Полная прозрачность <br>
+                и <span class="text-white">контроль</span>
+            </h2>
+            <p class="text-brand-gray font-light text-xl max-w-xl">
+                ИИ анализирует ИИ: отслеживайте эффективность использования и находите точки роста бизнеса.
+            </p>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-12 gap-12 items-start">
+            
+            <!-- LEFT COLUMN: Features -->
+            <div class="col-span-5 space-y-5 pt-4">
+                
+                <!-- Feature 1: Logging -->
+                <div class="group flex items-start gap-5 p-4 rounded-xl transition-colors hover:bg-white/5 cursor-default">
+                    <div class="w-12 h-12 rounded-lg bg-brand-panel border border-white/10 flex items-center justify-center shrink-0 group-hover:border-brand-mint/50 transition-colors">
+                        <svg class="w-6 h-6 text-gray-400 group-hover:text-brand-mint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Логирование 100%</h3>
+                        <p class="text-brand-gray text-sm leading-relaxed">
+                            Полная история всех диалогов и промптов. Вы всегда знаете, кто, когда и для чего использовал нейросеть.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Analytics -->
+                <div class="group flex items-start gap-5 p-4 rounded-xl transition-colors hover:bg-white/5 cursor-default">
+                    <div class="w-12 h-12 rounded-lg bg-brand-panel border border-white/10 flex items-center justify-center shrink-0 group-hover:border-brand-purple/50 transition-colors">
+                        <svg class="w-6 h-6 text-gray-400 group-hover:text-brand-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Аналитика использования</h3>
+                        <p class="text-brand-gray text-sm leading-relaxed">
+                            Дашборды по отделам и сотрудникам. Выявление самых популярных сценариев и моделей (GPT-4 vs Local).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Growth Points -->
+                <div class="group flex items-start gap-5 p-4 rounded-xl transition-colors hover:bg-white/5 cursor-default">
+                    <div class="w-12 h-12 rounded-lg bg-brand-panel border border-white/10 flex items-center justify-center shrink-0 group-hover:border-brand-mint/50 transition-colors">
+                        <svg class="w-6 h-6 text-gray-400 group-hover:text-brand-mint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-2">Поиск точек роста</h3>
+                        <p class="text-brand-gray text-sm leading-relaxed">
+                            Система анализирует паттерны и подсказывает: «Отдел маркетинга тратит 40 часов на отчеты. Внедрите рецепт для автоматизации».
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Dashboard Visual -->
+            <div class="col-span-7 relative h-[450px]">
+                
+                <!-- Dashboard Container -->
+                <div class="absolute inset-0 bg-[#0f0f0f] border border-white/10 rounded-xl shadow-2xl overflow-hidden flex flex-col">
+                    
+                    <!-- Dashboard Header -->
+                    <div class="h-12 border-b border-white/5 flex items-center justify-between px-6 bg-brand-panel">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-brand-forest"></div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-gray-400">Vedunya Analytics</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="h-2 w-16 bg-white/10 rounded-full"></div>
+                            <div class="h-2 w-8 bg-white/10 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Body -->
+                    <div class="p-6 grid grid-cols-2 gap-6 h-full">
+                        
+                        <!-- Chart Area (Left) -->
+                        <div class="col-span-1 flex flex-col gap-4">
+                            <!-- Metric Cards -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-white/5 p-3 rounded-lg border border-white/5">
+                                    <div class="text-[10px] text-gray-500 uppercase">Active Users</div>
+                                    <div class="text-xl font-bold text-white">1,248</div>
+                                    <div class="text-[10px] text-brand-mint">+12% this week</div>
+                                </div>
+                                <div class="bg-white/5 p-3 rounded-lg border border-white/5">
+                                    <div class="text-[10px] text-gray-500 uppercase">Requests</div>
+                                    <div class="text-xl font-bold text-white">45k</div>
+                                    <div class="text-[10px] text-brand-mint">+5% today</div>
+                                </div>
+                            </div>
+
+                            <!-- Bar Chart Visual -->
+                            <div class="flex-1 bg-white/5 rounded-lg border border-white/5 p-4 flex items-end justify-between gap-2">
+                                <div class="w-full bg-brand-mint/20 rounded-t-sm relative group" style="height: 40%">
+                                    <div class="absolute bottom-0 w-full bg-brand-mint rounded-t-sm animate-bar-grow" style="--target-height: 100%"></div>
+                                </div>
+                                <div class="w-full bg-brand-mint/20 rounded-t-sm relative group" style="height: 65%">
+                                    <div class="absolute bottom-0 w-full bg-brand-mint rounded-t-sm animate-bar-grow" style="--target-height: 100%; animation-delay: 0.1s"></div>
+                                </div>
+                                <div class="w-full bg-brand-mint/20 rounded-t-sm relative group" style="height: 50%">
+                                    <div class="absolute bottom-0 w-full bg-brand-mint rounded-t-sm animate-bar-grow" style="--target-height: 100%; animation-delay: 0.2s"></div>
+                                </div>
+                                <div class="w-full bg-brand-mint/20 rounded-t-sm relative group" style="height: 85%">
+                                    <div class="absolute bottom-0 w-full bg-brand-mint rounded-t-sm animate-bar-grow" style="--target-height: 100%; animation-delay: 0.3s"></div>
+                                </div>
+                                <div class="w-full bg-brand-mint/20 rounded-t-sm relative group" style="height: 60%">
+                                    <div class="absolute bottom-0 w-full bg-brand-mint rounded-t-sm animate-bar-grow" style="--target-height: 100%; animation-delay: 0.4s"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Insights/Logs Area (Right) -->
+                        <div class="col-span-1 flex flex-col gap-4">
+                            
+                            <!-- AI Insight Card (Floating Pop-up Effect) -->
+                            <div class="bg-gradient-to-br from-brand-mint/10 to-transparent border border-brand-mint/30 rounded-lg p-4 shadow-neon-mint">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-brand-mint" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                    <span class="text-xs font-bold text-brand-mint uppercase">AI Insight</span>
+                                </div>
+                                <p class="text-xs text-gray-300 leading-relaxed">
+                                    Высокая активность в отделе HR. <br>
+                                    <span class="text-white">Рекомендация:</span> Внедрить рецепт "Скрининг резюме" для экономии 15 часов/неделю.
+                                </p>
+                            </div>
+
+                            <!-- Log List -->
+                            <div class="flex-1 bg-white/5 rounded-lg border border-white/5 p-3 overflow-hidden">
+                                <div class="text-[10px] text-gray-500 uppercase mb-2">Recent Prompts</div>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between text-[10px] border-b border-white/5 pb-1">
+                                        <span class="text-gray-300">Analysis_Q3.pdf</span>
+                                        <span class="text-brand-purple">Marketing</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-[10px] border-b border-white/5 pb-1">
+                                        <span class="text-gray-300">Java Code Review</span>
+                                        <span class="text-brand-mint">Dev Team</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-[10px] border-b border-white/5 pb-1">
+                                        <span class="text-gray-300">Contract_Draft_v2</span>
+                                        <span class="text-gray-400">Legal</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-[10px] border-b border-white/5 pb-1">
+                                        <span class="text-gray-300">Competitor Research</span>
+                                        <span class="text-brand-purple">Sales</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Decorative Elements behind Dashboard -->
+                <div class="absolute -z-10 -right-10 -bottom-10 w-40 h-40 bg-brand-purple rounded-full blur-[100px] opacity-20"></div>
+                <div class="absolute -z-10 -left-10 -top-10 w-40 h-40 bg-brand-mint rounded-full blur-[100px] opacity-10"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

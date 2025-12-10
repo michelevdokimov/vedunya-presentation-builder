@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Слайд 7: Эффективность</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#050505',
+                            dark: '#121212',
+                            panel: '#151515',
+                            mint: '#00FF9D',
+                            forest: '#1B4D3E',
+                            blue: '#38BDF8',   /* Deep Research */
+                            amber: '#F59E0B',  /* Integrations */
+                            gray: '#B0B0B0',
+                            white: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'efficiency-glow': 'radial-gradient(circle at 30% 80%, rgba(0, 255, 157, 0.15) 0%, transparent 60%)',
+                        'grid-pattern': "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23333' fill-opacity='0.2' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E\")"
+                    },
+                    boxShadow: {
+                        'card': '0 10px 30px -10px rgba(0,0,0,0.5)',
+                        'neon-mint': '0 0 15px rgba(0, 255, 157, 0.15)',
+                    },
+                    animation: {
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'scroll-chat': 'scrollChat 25s linear infinite',
+                        'scroll-research': 'scrollResearch 20s linear infinite',
+                        'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        scrollChat: {
+                            '0%': { transform: 'translateY(0)' },
+                            '10%': { transform: 'translateY(0)' },
+                            '100%': { transform: 'translateY(-65%)' }
+                        },
+                        scrollResearch: {
+                            '0%': { transform: 'translateY(0)' },
+                            '5%': { transform: 'translateY(0)' },
+                            '100%': { transform: 'translateY(-140%)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.5' },
+                            '50%': { opacity: '1' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #FFFFFF;
+            overflow: hidden;
+        }
+
+        .noise-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .bento-card {
+            transition: all 0.3s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.7);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        /* Scrollbar styles */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        
+        /* Smooth scrolling for chat containers */
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative font-sans selection:bg-brand-mint selection:text-black">
+
+    <!-- Background Layers -->
+    <div class="absolute inset-0 bg-grid-pattern opacity-30 z-0"></div>
+    <div class="absolute bottom-0 left-0 w-2/3 h-2/3 bg-efficiency-glow z-0"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Main Container -->
+    <div class="w-full max-w-[1200px] px-12 relative z-10 flex flex-col justify-center h-screen py-10">
+        
+        <!-- Header -->
+        <div class="w-full mb-12">
+            <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border border-brand-mint/30 bg-brand-mint/5">
+                <svg class="w-3 h-3 text-brand-mint" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                <span class="text-[10px] uppercase tracking-widest text-brand-mint font-bold">Deep Dive: Эффективность</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                Инструмент работы, <br>
+                а не <span class="text-white decoration-brand-mint/50 underline decoration-4 underline-offset-4">игрушка</span>
+            </h2>
+            <p class="text-brand-gray font-light text-xl max-w-xl">
+                Превращаем чат в мощный бизнес-инструмент с помощью готовых сценариев и агентов.
+            </p>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-12 gap-12 items-center">
+            
+            <!-- LEFT COLUMN: Features List -->
+            <div class="col-span-5 space-y-6">
+                <!-- Recipe Feature -->
+                <div class="group flex items-start gap-5 p-4 rounded-xl transition-colors hover:bg-white/5 cursor-default">
+                    <div class="w-12 h-12 rounded-lg bg-brand-panel border border-white/10 flex items-center justify-center shrink-0 group-hover:border-brand-mint transition-colors">
+                        <svg class="w-6 h-6 text-gray-400 group-hover:text-brand-mint" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1 group-hover:text-brand-mint transition-colors">Библиотека рецептов</h3>
+                        <p class="text-brand-gray text-sm leading-relaxed">
+                            Готовые, проверенные промпты для ролей (HR, Sales, Dev). Сотрудник выбирает задачу, а не придумывает промпт.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Agent Feature -->
+                <div class="group flex items-start gap-5 p-4 rounded-xl transition-colors hover:bg-white/5 cursor-default">
+                    <div class="w-12 h-12 rounded-lg bg-brand-panel border border-white/10 flex items-center justify-center shrink-0 group-hover:border-brand-blue transition-colors">
+                        <svg class="w-6 h-6 text-gray-400 group-hover:text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1 group-hover:text-brand-blue transition-colors">AI Агенты</h3>
+                        <p class="text-brand-gray text-sm leading-relaxed">
+                            <span class="text-brand-blue">Deep Research</span> для поиска в интернете с фактчекингом и <span class="text-white">Doc Analyst</span> для работы с документами.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Integrations Feature -->
+                <div class="group flex items-start gap-5 p-4 rounded-xl transition-colors hover:bg-white/5 cursor-default">
+                    <div class="w-12 h-12 rounded-lg bg-brand-panel border border-white/10 flex items-center justify-center shrink-0 group-hover:border-brand-amber transition-colors">
+                        <svg class="w-6 h-6 text-gray-400 group-hover:text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1 group-hover:text-brand-amber transition-colors">Интеграции</h3>
+                        <p class="text-brand-gray text-sm leading-relaxed">
+                            Подключение к корпоративным базам знаний (Confluence, Jira, Notion) для контекстного поиска.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Visual (Bento Grid) -->
+            <div class="col-span-7 h-[450px] relative">
+                <div class="absolute inset-0 bg-brand-mint/5 blur-[60px] rounded-full"></div>
+
+                <div class="relative w-full h-full grid grid-cols-2 grid-rows-6 gap-4">
+                    
+                    <!-- Card 1: Recipe -->
+                    <div class="bento-card col-span-2 row-span-3 bg-[#0f0f0f] border border-white/10 rounded-2xl relative overflow-hidden group shadow-card">
+                        <div class="absolute top-0 left-0 w-full p-4 bg-[#0f0f0f]/95 backdrop-blur z-20 border-b border-white/5">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-1 rounded bg-brand-mint/10 border border-brand-mint/20 text-[10px] font-bold text-brand-mint uppercase tracking-wider">Рецепт: Общий</span>
+                                </div>
+                                <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mt-1">План дня с перерывами</h4>
+                        </div>
+                        <div class="absolute top-16 left-0 w-full h-full p-4 z-10 overflow-hidden">
+                            <div class="space-y-4 animate-scroll-chat w-full">
+                                <div class="flex justify-end">
+                                    <div class="bg-[#222] text-gray-300 px-3 py-2 rounded-xl rounded-tr-none text-[10px] max-w-[80%] border border-white/5 leading-relaxed">
+                                        <p>У меня есть 4 встречи по часу и задача на 2 часа сделать презентацию. Как уместить в рабочий день?</p>
+                                    </div>
+                                </div>
+                                <div class="flex justify-start gap-2">
+                                    <div class="w-6 h-6 rounded-full bg-brand-mint/10 border border-brand-mint/30 flex items-center justify-center text-brand-mint text-[8px] font-bold shrink-0">V</div>
+                                    <div class="bg-brand-mint/5 text-gray-300 px-3 py-3 rounded-xl rounded-tl-none text-[10px] w-[55%] border border-brand-mint/20 shadow-neon-mint leading-relaxed">
+                                        <p class="mb-2 font-semibold text-brand-mint">Расклад (Pomodoro):</p>
+                                        <div class="space-y-2 font-mono text-[9px] text-gray-400">
+                                            <div class="flex justify-between border-b border-white/5 pb-1"><span>09:00 — 09:25</span><span class="text-white">Встреча A (ч.1)</span></div>
+                                            <div class="flex justify-between border-b border-white/5 pb-1"><span>09:30 — 09:55</span><span class="text-white">Встреча A (ч.2)</span></div>
+                                            <div class="flex justify-between border-b border-white/5 pb-1"><span>10:00 — 10:25</span><span class="text-white">Встреча B (ч.1)</span></div>
+                                            <div class="py-1 text-center text-brand-mint/70 bg-brand-mint/5 rounded">☕️ Перерыв 30 мин</div>
+                                            <div class="flex justify-between border-b border-white/5 pb-1"><span>11:25 — 11:50</span><span class="text-white">Презентация (ч.1)</span></div>
+                                            <div class="flex justify-between border-b border-white/5 pb-1"><span>11:55 — 12:20</span><span class="text-white">Презентация (ч.2)</span></div>
+                                            <div class="py-1 text-center text-brand-mint/70 bg-brand-mint/5 rounded">🥗 Обед 60 мин</div>
+                                            <div class="flex justify-between pb-1"><span>16:15 — 16:40</span><span class="text-white">Буфер</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="h-20"></div>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-[#0f0f0f] to-transparent z-20 pointer-events-none"></div>
+                    </div>
+
+                    <!-- Card 2: Deep Research -->
+                    <div class="bento-card col-span-1 row-span-3 bg-[#081018] border border-brand-blue/20 rounded-2xl relative overflow-hidden shadow-card">
+                        <div class="absolute top-0 left-0 w-full p-4 bg-[#081018]/95 backdrop-blur z-20 border-b border-brand-blue/10">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-brand-blue"></div>
+                            <div class="flex items-center gap-2 mt-1">
+                                <svg class="w-4 h-4 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+                                <span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider">Deep Research</span>
+                            </div>
+                        </div>
+                        <!-- IMPORTANT: Use absolute positioning with top/bottom anchors for correct scroll area -->
+                        <div class="absolute top-12 bottom-0 left-0 right-0 p-4 z-10 overflow-hidden font-mono text-[9px] text-gray-400 smooth-scroll" id="research-container">
+                            <!-- Steps generated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Internal Docs (Security Zone) - JS CONTROLLED -->
+                    <div class="bento-card col-span-1 row-span-3 bg-[#1a150a] border border-brand-amber/20 rounded-2xl p-0 relative overflow-hidden shadow-card">
+                        
+                        <!-- Header with Secure Badge -->
+                        <div class="absolute top-0 left-0 w-full p-4 bg-[#1a150a]/95 backdrop-blur z-20 border-b border-brand-amber/10">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-brand-amber"></div>
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                                    <span class="text-[10px] font-bold text-brand-amber uppercase tracking-wider">Корпоративные данные</span>
+                                </div>
+                                <div class="flex items-center gap-1 bg-brand-mint/10 px-2 py-0.5 rounded border border-brand-mint/20">
+                                    <svg class="w-3 h-3 text-brand-mint" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                                    <span class="text-[8px] font-bold text-brand-mint uppercase">Security Zone</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Document Icons Row -->
+                            <div class="flex gap-2">
+                                <div class="w-8 h-10 bg-white/5 rounded flex flex-col items-center justify-center border border-white/10" title="Org Chart PDF">
+                                    <div class="w-4 h-5 bg-red-500/20 rounded-sm mb-1"></div>
+                                    <div class="h-0.5 w-4 bg-white/20 rounded"></div>
+                                </div>
+                                <div class="w-8 h-10 bg-white/5 rounded flex flex-col items-center justify-center border border-white/10" title="Contacts DOC">
+                                    <div class="w-4 h-5 bg-blue-500/20 rounded-sm mb-1"></div>
+                                    <div class="h-0.5 w-4 bg-white/20 rounded"></div>
+                                </div>
+                                <div class="w-8 h-10 bg-white/5 rounded flex flex-col items-center justify-center border border-white/10" title="Jira Ticket">
+                                    <div class="w-4 h-4 bg-brand-amber/20 rounded-sm mb-1 flex items-center justify-center text-[6px] text-brand-amber font-bold">J</div>
+                                    <div class="h-0.5 w-4 bg-white/20 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Area -->
+                        <!-- IMPORTANT: Use absolute positioning with top/bottom anchors -->
+                        <div class="absolute top-28 bottom-0 left-0 right-0 p-4 z-10 smooth-scroll overflow-hidden" id="security-chat-container">
+                            <!-- JS Generated Chat -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT FOR ANIMATIONS -->
+    <script>
+        const researchContainer = document.getElementById('research-container');
+        const securityContainer = document.getElementById('security-chat-container');
+        
+        // Deep Research Logic
+        const researchSteps = [
+            { type: 'think', text: 'Анализ трендов финтеха 2025. Фокус: итоги года и прогнозы на 2026.', duration: 1000 },
+            { type: 'search', count: 54, text: 'сайтах', duration: 2000, pause: 5000 },
+            { type: 'think', text: 'Выделяю паттерны: Агентный ИИ, Embedded Finance. Уточняю регуляторику.', duration: 1000 },
+            { type: 'search', count: 35, text: 'сайтах', duration: 2000, pause: 5000 },
+            { type: 'final', text: 'Сборка отчета завершена.', duration: 3000 }
+        ];
+
+        async function runResearchSequence() {
+            while (true) {
+                researchContainer.innerHTML = ''; 
+                for (const step of researchSteps) {
+                    const el = document.createElement('div');
+                    el.className = 'mb-3 animate-fade-in';
+                    if (step.type === 'think') {
+                        el.innerHTML = `
+                            <div class="flex items-start gap-2 mb-1"><svg class="w-3 h-3 text-brand-blue animate-pulse mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg><span class="text-white font-bold">Мысль:</span></div><p class="pl-5 border-l border-white/10 leading-tight">${step.text}</p>`;
+                        researchContainer.appendChild(el);
+                        // SCROLL IMMEDIATELY
+                        researchContainer.scrollTop = researchContainer.scrollHeight;
+                        await wait(step.duration); 
+                    } else if (step.type === 'search') {
+                        el.innerHTML = `<div class="flex items-center gap-2 text-brand-blue mb-1"><svg class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Поиск на <span class="counter-num">0</span> ${step.text}...</span></div><div class="grid grid-cols-4 gap-1 opacity-50 pl-5"><div class="h-1 w-full bg-white/10 rounded"></div><div class="h-1 w-full bg-white/10 rounded"></div><div class="h-1 w-full bg-white/10 rounded"></div><div class="h-1 w-full bg-white/10 rounded"></div></div>`;
+                        researchContainer.appendChild(el);
+                        // SCROLL IMMEDIATELY
+                        researchContainer.scrollTop = researchContainer.scrollHeight;
+                        const counterEl = el.querySelector('.counter-num');
+                        const start = 0, end = step.count, duration = step.duration, startTime = performance.now();
+                        await new Promise(resolve => {
+                            function update(currentTime) {
+                                const elapsed = currentTime - startTime;
+                                const progress = Math.min(elapsed / duration, 1);
+                                const current = Math.floor(progress * end);
+                                counterEl.textContent = current;
+                                if (progress < 1) requestAnimationFrame(update); else resolve();
+                            }
+                            requestAnimationFrame(update);
+                        });
+                        if (step.pause) await wait(step.pause);
+                    } else if (step.type === 'final') {
+                        el.innerHTML = `<div class="flex items-start gap-2 mt-4"><span class="text-brand-mint mt-0.5">✔</span><span class="text-white font-bold">${step.text}</span></div>`;
+                        researchContainer.appendChild(el);
+                        // SCROLL IMMEDIATELY
+                        researchContainer.scrollTop = researchContainer.scrollHeight;
+                        await wait(step.duration);
+                    }
+                }
+            }
+        }
+
+        // Security Chat Logic
+        const chatSteps = [
+            { type: 'user', text: 'Какой руководитель отвечает за работу логистического центра?', duration: 1500 },
+            { type: 'ai', text: 'По данным оргструктуры, это Алексей Смирнов (Head of Logistics).', duration: 3000 },
+            { type: 'user', text: 'Дай мне его контакты.', duration: 1500 },
+            { type: 'contact', name: 'Алексей Смирнов', role: 'Head of Logistics', email: 'a.smirnov@vedunya.ai', phone: 'вн. 4502', duration: 6000 }
+        ];
+
+        async function runSecurityChatSequence() {
+            while (true) {
+                securityContainer.innerHTML = '';
+                for (const step of chatSteps) {
+                    const el = document.createElement('div');
+                    el.className = 'mb-3 text-[9px] leading-tight animate-fade-in';
+                    
+                    if (step.type === 'user') {
+                        el.innerHTML = `<div class="flex justify-end"><div class="bg-[#222] text-gray-300 px-3 py-2 rounded-xl rounded-tr-none max-w-[90%] border border-white/5">${step.text}</div></div>`;
+                    } else if (step.type === 'ai') {
+                        el.innerHTML = `<div class="flex justify-start gap-2"><div class="w-6 h-6 rounded-full bg-brand-mint/10 border border-brand-mint/30 flex items-center justify-center text-brand-mint text-[8px] font-bold shrink-0">V</div><div class="bg-brand-mint/5 text-gray-300 px-3 py-2 rounded-xl rounded-tl-none max-w-[95%] border border-brand-mint/20 shadow-neon-mint">${step.text}</div></div>`;
+                    } else if (step.type === 'contact') {
+                        el.innerHTML = `
+                            <div class="flex justify-start gap-2">
+                                <div class="w-6 h-6 rounded-full bg-brand-mint/10 border border-brand-mint/30 flex items-center justify-center text-brand-mint text-[8px] font-bold shrink-0">V</div>
+                                <div class="bg-brand-mint/5 text-gray-300 px-3 py-2 rounded-xl rounded-tl-none max-w-[95%] border border-brand-mint/20 shadow-neon-mint">
+                                    <div class="bg-[#0f0f0f] p-2 rounded border border-white/10">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <div class="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center text-[8px] text-white font-bold">AS</div>
+                                            <div><div class="text-white font-bold">${step.name}</div><div class="text-gray-500 text-[8px]">${step.role}</div></div>
+                                        </div>
+                                        <div class="space-y-1 text-gray-400 mt-2 pl-1 border-l-2 border-brand-mint/30"><div>📧 ${step.email}</div><div>📞 ${step.phone}</div></div>
+                                    </div>
+                                </div>
+                            </div>`;
+                    }
+                    securityContainer.appendChild(el);
+                    // SCROLL IMMEDIATELY
+                    securityContainer.scrollTop = securityContainer.scrollHeight;
+                    await wait(step.duration);
+                }
+            }
+        }
+
+        function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+        // Start both sequences
+        runResearchSequence();
+        runSecurityChatSequence();
+    </script>
+</body>
+</html>

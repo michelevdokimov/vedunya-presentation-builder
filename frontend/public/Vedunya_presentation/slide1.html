@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Презентация Ведунья</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#050505',
+                            dark: '#121212',
+                            panel: '#1A1A1A',
+                            mint: '#00FF9D',
+                            forest: '#1B4D3E',
+                            gray: '#B0B0B0',
+                            white: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'forest-glow': 'radial-gradient(circle at 0% 50%, rgba(27, 77, 62, 0.4) 0%, transparent 50%)',
+                    },
+                    boxShadow: {
+                        'neon': '0 0 20px rgba(0, 255, 157, 0.15)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: #FFFFFF;
+            overflow: hidden;
+        }
+
+        /* Текстура шума */
+        .noise-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Градиент текста */
+        .text-gradient-mint {
+            background: linear-gradient(135deg, #FFFFFF 30%, #00FF9D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Скроллбар */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative font-sans selection:bg-brand-mint selection:text-black">
+
+    <!-- Background Elements -->
+    <div class="absolute top-0 left-0 w-full h-full bg-forest-glow z-0"></div>
+    <div class="absolute bottom-0 right-0 w-2/3 h-2/3 bg-[radial-gradient(circle_at_100%_100%,_rgba(0,255,157,0.05)_0%,_transparent_60%)] z-0"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Main Grid Container -->
+    <div class="w-full max-w-[1400px] px-12 grid grid-cols-12 gap-12 items-center relative z-10">
+        
+        <!-- LEFT COLUMN: Content -->
+        <div class="col-span-5 flex flex-col justify-center h-full">
+            
+            <!-- Logo Block -->
+            <div class="mb-10 flex items-center gap-4">
+                <!-- Custom SVG Logo -->
+                <div class="w-12 h-12 relative">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 10 L45 80 C48 88 52 88 55 80 L75 30 L60 30 L48 65 L35 10 Z" fill="#00FF9D"/>
+                        <path d="M60 10 C60 10 90 5 95 25 C100 45 75 55 65 50 Z" fill="#1B4D3E"/>
+                    </svg>
+                </div>
+                <span class="text-3xl font-bold tracking-wide text-white">Ведунья</span>
+            </div>
+
+            <!-- Main Title -->
+            <h1 class="text-4xl lg:text-5xl font-extrabold leading-[1.15] mb-8">
+                Ведунья — это<br>
+                <span class="text-gradient-mint">единый центр<br>корпоративного<br>интеллекта</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-xl text-brand-white font-light leading-relaxed pl-6 border-l-2 border-brand-mint/50">
+                Который автоматизирует рутину<br>
+                и ускоряет работу сотрудников<br>
+                в <span class="text-brand-mint font-normal">защищенном контуре</span>.
+            </p>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Screenshot Mockup -->
+        <div class="col-span-7 relative h-full flex items-center justify-center">
+            <!-- Decorative Glow behind mockup -->
+            <div class="absolute inset-0 bg-brand-mint opacity-10 blur-[80px] rounded-full transform translate-x-10"></div>
+            
+            <!-- Browser Mockup Window -->
+            <div class="relative w-full rounded-xl bg-[#0f0f0f] border border-brand-forest/50 shadow-2xl overflow-hidden transform rotate-[-1deg] hover:rotate-0 transition-transform duration-700">
+                <!-- Browser Header -->
+                <div class="h-10 bg-[#1A1A1A] border-b border-[#333] flex items-center px-4 gap-2">
+                    <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                    <!-- Address Bar -->
+                    <div class="ml-4 flex-1 h-6 bg-[#000] rounded-md border border-[#333] flex items-center px-3">
+                        <svg class="w-3 h-3 text-brand-mint mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        <span class="text-[10px] text-gray-500 font-mono">chat.vedunya.ai/secure-session</span>
+                    </div>
+                </div>
+
+                <!-- Screen Content (Image Placeholder) -->
+                <div class="relative w-full aspect-[16/10] bg-[#121212] flex items-center justify-center overflow-hidden group">
+                     <!-- Simulated Interface Background -->
+                     <div class="absolute inset-0 grid grid-cols-12 gap-0">
+                        <!-- Sidebar -->
+                        <div class="col-span-3 bg-[#0A0A0A] border-r border-[#222] p-4 hidden md:block">
+                            <div class="h-8 w-24 bg-brand-forest/20 rounded mb-6"></div>
+                            <div class="space-y-3">
+                                <div class="h-4 w-full bg-[#222] rounded"></div>
+                                <div class="h-4 w-3/4 bg-[#222] rounded"></div>
+                                <div class="h-4 w-5/6 bg-[#222] rounded"></div>
+                            </div>
+                        </div>
+                        <!-- Chat Area -->
+                        <div class="col-span-9 p-6 relative">
+                             <!-- Message Bubble User -->
+                             <div class="flex justify-end mb-6">
+                                <div class="bg-[#222] text-gray-300 px-4 py-3 rounded-2xl rounded-tr-sm max-w-[80%] text-sm">
+                                    Проанализируй отзывы по дивану "Лига 067" и выдели основные жалобы клиентов.
+                                </div>
+                             </div>
+                             <!-- Message Bubble AI -->
+                             <div class="flex justify-start">
+                                <div class="w-8 h-8 rounded-full bg-brand-forest flex items-center justify-center mr-3 text-brand-mint text-xs font-bold border border-brand-mint/30">V</div>
+                                <div class="bg-brand-forest/10 border border-brand-forest/30 text-gray-200 px-5 py-4 rounded-2xl rounded-tl-sm max-w-[90%] text-sm shadow-neon">
+                                    <p class="font-bold text-brand-mint mb-2 text-xs uppercase tracking-wider">Анализ завершен</p>
+                                    <p class="mb-2">На основе 21 отзыва, средний рейтинг модели составляет 3.9/5.</p>
+                                    <ul class="list-disc pl-4 space-y-1 text-gray-400">
+                                        <li><span class="text-white">Жесткость спального места:</span> 45% пользователей отмечают излишнюю жесткость.</li>
+                                        <li><span class="text-white">Механизм:</span> Надежный, но требует усилий при раскладывании.</li>
+                                    </ul>
+                                </div>
+                             </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
