@@ -130,11 +130,6 @@ export function PresentationViewer() {
         </div>
       )}
 
-      {!printMode && (
-        <div className="viewer-help">
-          <p>Use arrow keys or space to navigate • Press F for fullscreen • Esc to exit</p>
-        </div>
-      )}
     </>
   );
 }
