@@ -1,0 +1,59 @@
+.slide-preview-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  background-color: #050505;
+}
+
+.slide-preview-scaler {
+  /* Set fixed dimensions matching presentation size (1920x1080) */
+  width: 1920px;
+  height: 1080px;
+
+  /* Transform origin at top-left for proper scaling */
+  transform-origin: top left;
+
+  /* Scale to fit the preview area - card is ~320px min width */
+  /* Scale factor = container_width / 1920 */
+  /* Using CSS container query would be ideal, but for compatibility we calculate */
+  transform: scale(0.167); /* ~320px / 1920 */
+
+  /* Ensure content is positioned correctly */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Adjust scaling based on grid column width */
+@media (min-width: 640px) {
+  .slide-preview-scaler {
+    transform: scale(0.18);
+  }
+}
+
+@media (min-width: 768px) {
+  .slide-preview-scaler {
+    transform: scale(0.19);
+  }
+}
+
+@media (min-width: 1024px) {
+  .slide-preview-scaler {
+    transform: scale(0.20);
+  }
+}
+
+@media (min-width: 1280px) {
+  .slide-preview-scaler {
+    transform: scale(0.21);
+  }
+}
+
+/* Override pointer events for preview - it's non-interactive */
+.slide-preview-wrapper * {
+  pointer-events: none;
+}

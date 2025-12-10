@@ -1,13 +1,13 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { ErrorMessage } from '../components/ErrorMessage';
-import { ExportButton } from '../components/ExportButton';
 import '../styles/viewer.css';
 
 export function PresentationViewer() {
   const { id } = useParams<{ id: string }>();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const printMode = searchParams.get('print') === 'true';
 
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -117,7 +117,16 @@ export function PresentationViewer() {
             )}
           </button>
 
-          {id && <ExportButton presentationId={id} />}
+          <button
+            className="control-btn close-btn"
+            onClick={() => navigate('/')}
+            aria-label="Закрыть презентацию"
+            title="Закрыть"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M18 6L6 18M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
       )}
 

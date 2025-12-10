@@ -185,60 +185,6 @@ const GlassCard = ({
   );
 };
 
-// Browser Mockup Window
-const BrowserMockup = ({ children, url = 'chat.vedunya.ai/secure-session' }: { children: ReactNode; url?: string }) => (
-  <div
-    style={{
-      width: '100%',
-      borderRadius: '12px',
-      backgroundColor: '#0f0f0f',
-      border: `1px solid ${brandColors.forest}80`,
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-      overflow: 'hidden',
-    }}
-  >
-    {/* Browser Header */}
-    <div
-      style={{
-        height: '40px',
-        backgroundColor: brandColors.panel,
-        borderBottom: '1px solid #333',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 16px',
-        gap: '8px',
-      }}
-    >
-      <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#FF5F56' }} />
-      <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#FFBD2E' }} />
-      <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#27C93F' }} />
-      {/* Address Bar */}
-      <div
-        style={{
-          marginLeft: '16px',
-          flex: 1,
-          height: '24px',
-          backgroundColor: '#000',
-          borderRadius: '4px',
-          border: '1px solid #333',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 12px',
-        }}
-      >
-        <svg width={12} height={12} fill="none" viewBox="0 0 24 24" stroke={brandColors.mint} style={{ marginRight: 8 }}>
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-        </svg>
-        <span style={{ fontSize: '10px', color: '#666', fontFamily: 'monospace' }}>{url}</span>
-      </div>
-    </div>
-    {/* Content */}
-    <div style={{ aspectRatio: '16/10', backgroundColor: brandColors.dark }}>
-      {children}
-    </div>
-  </div>
-);
-
 // Circular Progress Chart
 const CircularChart = ({
   percentage,
