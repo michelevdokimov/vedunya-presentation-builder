@@ -1,5 +1,5 @@
 import { Deck, Slide } from 'spectacle';
-import { useState, useEffect, CSSProperties, ReactNode } from 'react';
+import { useState, useEffect, useRef, CSSProperties, ReactNode } from 'react';
 
 // Presentation metadata
 export const metadata = {
@@ -256,8 +256,8 @@ const CircularChart = ({
   const offset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div style={{ position: 'relative', width: 256, height: 256, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <svg width={256} height={256} style={{ transform: 'rotate(-90deg)' }}>
+    <div style={{ position: 'relative', width: 256, height: 256, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'visible' }}>
+      <svg width={256} height={256} style={{ transform: 'rotate(-90deg)', overflow: 'visible' }}>
         <circle cx={128} cy={128} r={radius} stroke="#1A1A1A" strokeWidth={12} fill="none" />
         <circle
           cx={128}
@@ -272,9 +272,9 @@ const CircularChart = ({
           style={{ filter: `drop-shadow(0 0 15px ${color}80)` }}
         />
       </svg>
-      <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', maxWidth: 180, padding: '0 10px' }}>
         <span style={{ fontSize: '56px', fontWeight: 'bold', color: brandColors.white }}>{label}</span>
-        <span style={{ fontSize: '12px', color: brandColors.gray, textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center', marginTop: 8 }}>
+        <span style={{ fontSize: '11px', color: brandColors.gray, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center', marginTop: 8, lineHeight: 1.4 }}>
           {sublabel}
         </span>
       </div>
@@ -708,7 +708,7 @@ const Slide2Concept = () => (
       {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: 40 }}>
         <h2 style={{ fontSize: 48, fontWeight: 'bold', marginBottom: 12, color: brandColors.white }}>
-          Ведунья — это <GradientText>корпоративный ChatGPT</GradientText>
+          <GradientText>Корпоративный аналог ChatGPT</GradientText>
         </h2>
         <p style={{ color: brandColors.gray, fontWeight: 300, fontSize: 18 }}>
           Знакомый интерфейс, адаптированный под <span style={{ color: brandColors.white, fontWeight: 400 }}>Enterprise-стандарты</span> безопасности и контроля.
@@ -747,97 +747,17 @@ const Slide2Concept = () => (
             borderRadius: '50%',
           }} />
 
-          <BrowserMockup>
-            <div style={{ display: 'flex', height: '100%' }}>
-              {/* Sidebar */}
-              <div style={{
-                width: 192,
-                backgroundColor: '#0A0A0A',
-                borderRight: '1px solid #222',
-                padding: 12,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 12,
-              }}>
-                <div style={{ height: 24, width: '75%', backgroundColor: `${brandColors.forest}33`, borderRadius: 4, marginBottom: 8 }} />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, opacity: 0.5 }}>
-                  <div style={{ height: 8, backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 4 }} />
-                  <div style={{ height: 8, width: '85%', backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 4 }} />
-                  <div style={{ height: 8, width: '80%', backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 4 }} />
-                </div>
-              </div>
-
-              {/* Main Chat */}
-              <div style={{ flex: 1, padding: 24, display: 'flex', flexDirection: 'column' }}>
-                <div style={{
-                  alignSelf: 'flex-end',
-                  backgroundColor: '#222',
-                  color: brandColors.white,
-                  padding: '8px 16px',
-                  borderRadius: '16px 16px 4px 16px',
-                  fontSize: 12,
-                  border: '1px solid #333',
-                  marginBottom: 16,
-                }}>
-                  Составь план внедрения OKR...
-                </div>
-                <div style={{ display: 'flex', gap: 12 }}>
-                  <div style={{
-                    width: 24,
-                    height: 24,
-                    borderRadius: '50%',
-                    backgroundColor: brandColors.mint,
-                    color: brandColors.black,
-                    fontSize: 10,
-                    fontWeight: 'bold',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}>
-                    V
-                  </div>
-                  <div style={{ fontSize: 12, color: '#E5E5E5' }}>
-                    <p style={{ marginBottom: 8 }}>Готово. Вот проект плана:</p>
-                    <div style={{
-                      backgroundColor: brandColors.panel,
-                      border: `1px solid ${brandColors.forest}4D`,
-                      borderRadius: 8,
-                      padding: 12,
-                      boxShadow: '0 0 20px rgba(0, 255, 157, 0.1)',
-                    }}>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 8,
-                        marginBottom: 8,
-                        color: brandColors.mint,
-                        fontSize: 10,
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.1em',
-                      }}>
-                        <svg width={12} height={12} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                        </svg>
-                        Рецепт: Планирование
-                      </div>
-                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: 12 }}>
-                        <li style={{ display: 'flex', gap: 6, marginBottom: 4 }}>
-                          <span style={{ color: brandColors.mint }}>•</span>
-                          <span><strong style={{ color: brandColors.white }}>Objective:</strong> <span style={{ color: brandColors.gray }}>Увеличить конверсию на 15%.</span></span>
-                        </li>
-                        <li style={{ display: 'flex', gap: 6 }}>
-                          <span style={{ color: brandColors.mint }}>•</span>
-                          <span><strong style={{ color: brandColors.white }}>KR1:</strong> <span style={{ color: brandColors.gray }}>Внедрить скрипт.</span></span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </BrowserMockup>
+          <img
+              src="/Vedunya_presentation/images/vedunya.gif"
+              alt="Vedunya Interface"
+              style={{
+                width: '100%',
+                maxWidth: '900px',
+                borderRadius: '12px',
+                boxShadow: '0 25px 80px rgba(0, 0, 0, 0.5)',
+                display: 'block',
+              }}
+            />
         </div>
       </div>
     </div>
@@ -879,7 +799,7 @@ const Slide3Problem = () => (
       <div style={{
         position: 'absolute',
         bottom: '10%',
-        left: '30%',
+        right: '10%',
         color: brandColors.warning,
         opacity: 0.2,
         animation: 'pulse 4s ease-in-out infinite',
@@ -924,7 +844,7 @@ const Slide3Problem = () => (
             sublabel="Сотрудников используют ИИ"
           />
           <div style={{ marginTop: 32, textAlign: 'center', maxWidth: 280 }}>
-            <p style={{ color: brandColors.gray, fontSize: 14, lineHeight: 1.6 }}>
+            <p style={{ color: brandColors.gray, fontSize: 18, lineHeight: 1.6 }}>
               Это энтузиасты-одиночки, использующие ИИ для <span style={{ color: brandColors.white }}>«интересных задач»</span>, часто без реальной пользы для бизнеса.
             </p>
           </div>
@@ -1108,8 +1028,7 @@ const Slide5Security = () => (
       {/* Header */}
       <div style={{ marginBottom: 40 }}>
         <h2 style={{ fontSize: 36, fontWeight: 'bold', marginBottom: 12, color: brandColors.white }}>
-          Бескомпромиссная<br />
-          <GradientText>защита данных</GradientText>
+          Бескомпромиссная <GradientText>защита данных</GradientText>
         </h2>
         <p style={{ color: brandColors.gray, fontWeight: 300, fontSize: 18, maxWidth: 480 }}>
           Многоуровневая архитектура безопасности, которая адаптируется под чувствительность информации.
@@ -1229,7 +1148,7 @@ const Slide5Security = () => (
           {/* SVG Lines */}
           <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible' }}>
             {/* Employee to Proxy */}
-            <line x1="23%" y1="50%" x2="40%" y2="50%" stroke={brandColors.sky} strokeWidth={2} strokeOpacity={0.6} />
+            <line x1="18%" y1="50%" x2="40%" y2="50%" stroke={brandColors.sky} strokeWidth={2} strokeOpacity={0.6} />
             {/* Proxy to Cloud */}
             <line x1="60%" y1="50%" x2="82%" y2="30%" stroke={brandColors.sky} strokeWidth={2} strokeOpacity={0.6} />
             {/* Proxy to Local */}
@@ -1243,7 +1162,7 @@ const Slide5Security = () => (
             position: 'absolute',
             left: '5%',
             top: '50%',
-            transform: 'translateY(-50%)',
+            transform: 'translateY(-35%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -1280,7 +1199,11 @@ const Slide5Security = () => (
               width: 128,
               height: 128,
               borderRadius: 24,
-              background: `linear-gradient(135deg, ${brandColors.cyan} 0%, ${brandColors.mint} 100%)`,
+              background: 'transparent',
+              border: '3px solid transparent',
+              backgroundImage: `linear-gradient(${brandColors.dark}, ${brandColors.dark}), linear-gradient(135deg, ${brandColors.cyan} 0%, ${brandColors.mint} 100%)`,
+              backgroundOrigin: 'border-box',
+              backgroundClip: 'padding-box, border-box',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -1288,7 +1211,7 @@ const Slide5Security = () => (
               boxShadow: `0 0 30px ${brandColors.mint}40`,
             }}>
               <ShieldCheckIcon size={48} />
-              <span style={{ fontSize: 14, fontWeight: 'bold', color: brandColors.black, marginTop: 8 }}>AI PROXY</span>
+              <span style={{ fontSize: 14, fontWeight: 'bold', color: brandColors.white, marginTop: 8 }}>AI PROXY</span>
             </div>
           </div>
 
@@ -1363,7 +1286,7 @@ const Slide5Security = () => (
               boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
             }}>
               <span style={{ fontSize: 12, fontWeight: 'bold', color: brandColors.mint, textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center', display: 'block' }}>
-                Анализ<br />данных
+                ИИ охранник<br />данных
               </span>
             </div>
           </div>
@@ -1546,14 +1469,199 @@ const Slide6Governance = () => (
 
 // Slide 7: Efficiency
 const Slide7Efficiency = () => {
-  const [animationFrame, setAnimationFrame] = useState(0);
+  const [showUserMessage, setShowUserMessage] = useState(false);
+  const [showAiResponse, setShowAiResponse] = useState(false);
+  const [scrollOffset, setScrollOffset] = useState(0);
+  const [animationKey, setAnimationKey] = useState(0);
 
+  // Deep Research animation states
+  const [showDeepUserMsg, setShowDeepUserMsg] = useState(false);
+  const [currentThought, setCurrentThought] = useState(0);
+  const [showThoughtSearch, setShowThoughtSearch] = useState([false, false, false, false, false]);
+  const [thoughtSearchCounts, setThoughtSearchCounts] = useState([0, 0, 0, 0, 0]);
+  const [deepScrollOffset, setDeepScrollOffset] = useState(0);
+  const [showDeepComplete, setShowDeepComplete] = useState(false);
+  const [deepAnimationKey, setDeepAnimationKey] = useState(0);
+
+  // Corporate Data animation states
+  const [corpMessages, setCorpMessages] = useState<number[]>([]); // Array of visible message indices
+  const [corpScrollOffset, setCorpScrollOffset] = useState(0);
+  const [docAnimIndex, setDocAnimIndex] = useState(0);
+  const [corpAnimationKey, setCorpAnimationKey] = useState(0);
+  const corpContentRef = useRef<HTMLDivElement>(null);
+
+  // === CARD 1: Main Chat Card Animation (independent) ===
   useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimationFrame(prev => (prev + 1) % 100);
-    }, 100);
-    return () => clearInterval(interval);
-  }, []);
+    setShowUserMessage(false);
+    setShowAiResponse(false);
+    setScrollOffset(0);
+
+    const userTimer = setTimeout(() => {
+      setShowUserMessage(true);
+    }, 500);
+
+    const aiTimer = setTimeout(() => {
+      setShowAiResponse(true);
+    }, 2500);
+
+    const scrollStartTimer = setTimeout(() => {
+      let currentOffset = 0;
+      const targetOffset = 75;
+      const scrollDuration = 3000;
+      const steps = 60;
+      const increment = targetOffset / steps;
+      const stepDelay = scrollDuration / steps;
+
+      const scrollInterval = setInterval(() => {
+        currentOffset += increment;
+        if (currentOffset >= targetOffset) {
+          currentOffset = targetOffset;
+          clearInterval(scrollInterval);
+          setTimeout(() => {
+            setAnimationKey(prev => prev + 1);
+          }, 3000);
+        }
+        setScrollOffset(currentOffset);
+      }, stepDelay);
+    }, 3000);
+
+    return () => {
+      clearTimeout(userTimer);
+      clearTimeout(aiTimer);
+      clearTimeout(scrollStartTimer);
+    };
+  }, [animationKey]);
+
+  // === CARD 2: Deep Research Card Animation (independent) ===
+  useEffect(() => {
+    setShowDeepUserMsg(false);
+    setCurrentThought(0);
+    setShowThoughtSearch([false, false, false, false, false]);
+    setThoughtSearchCounts([0, 0, 0, 0, 0]);
+    setDeepScrollOffset(0);
+    setShowDeepComplete(false);
+
+    const thoughtTargets = [12, 24, 35, 47, 58];
+    const blockHeight = 58;
+    const blockDuration = 5500; // 1s + 1.5s + 3s pause
+
+    const deepUserTimer = setTimeout(() => {
+      setShowDeepUserMsg(true);
+    }, 300);
+
+    const allDeepTimers: NodeJS.Timeout[] = [];
+    const allDeepIntervals: (NodeJS.Timeout | number)[] = [];
+
+    for (let i = 0; i < 5; i++) {
+      const blockStartTime = 800 + i * blockDuration;
+
+      const thoughtTimer = setTimeout(() => {
+        setCurrentThought(i + 1);
+        if (i >= 2) {
+          setDeepScrollOffset((i - 1) * blockHeight);
+        }
+      }, blockStartTime);
+      allDeepTimers.push(thoughtTimer);
+
+      const searchTimer = setTimeout(() => {
+        setShowThoughtSearch(prev => {
+          const newState = [...prev];
+          newState[i] = true;
+          return newState;
+        });
+
+        let count = 1;
+        const target = thoughtTargets[i];
+        const steps = 30;
+        const increment = (target - 1) / steps;
+        const stepDelay = 1500 / steps;
+
+        const countInterval = setInterval(() => {
+          count += increment;
+          if (count >= target) {
+            count = target;
+            clearInterval(countInterval);
+          }
+          setThoughtSearchCounts(prev => {
+            const newCounts = [...prev];
+            newCounts[i] = Math.floor(count);
+            return newCounts;
+          });
+        }, stepDelay);
+        allDeepIntervals.push(countInterval);
+      }, blockStartTime + 1000);
+      allDeepTimers.push(searchTimer);
+    }
+
+    const totalDuration = 800 + 5 * blockDuration;
+    const deepCompleteTimer = setTimeout(() => {
+      setShowDeepComplete(true);
+      setDeepScrollOffset(3 * blockHeight);
+    }, totalDuration);
+    allDeepTimers.push(deepCompleteTimer);
+
+    const deepRestartTimer = setTimeout(() => {
+      setDeepAnimationKey(prev => prev + 1);
+    }, totalDuration + 4000);
+    allDeepTimers.push(deepRestartTimer);
+
+    return () => {
+      clearTimeout(deepUserTimer);
+      allDeepTimers.forEach(t => clearTimeout(t));
+      allDeepIntervals.forEach(i => clearInterval(i as NodeJS.Timeout));
+    };
+  }, [deepAnimationKey]);
+
+  // === CARD 3: Corporate Data Card Animation (independent) ===
+  useEffect(() => {
+    setCorpMessages([]);
+    setCorpScrollOffset(0);
+    setDocAnimIndex(0);
+
+    const docInterval = setInterval(() => {
+      setDocAnimIndex(prev => (prev + 1) % 4);
+    }, 800);
+
+    const allCorpTimers: NodeJS.Timeout[] = [];
+
+    // Helper to show message and scroll
+    const showMessage = (msgIndex: number, delay: number) => {
+      const timer = setTimeout(() => {
+        setCorpMessages(prev => [...prev, msgIndex]);
+        // Scroll after message appears
+        setTimeout(() => {
+          if (corpContentRef.current) {
+            const containerHeight = 120;
+            const bottomPadding = 5;
+            const contentHeight = corpContentRef.current.scrollHeight;
+            const scrollAmount = Math.max(0, contentHeight - containerHeight + bottomPadding);
+            setCorpScrollOffset(scrollAmount);
+          }
+        }, 300);
+      }, delay);
+      allCorpTimers.push(timer);
+    };
+
+    // Message timing: 6 messages (3 questions + 3 answers)
+    // Q1: 0.5s, A1: 2s, Q2: 5s, A2: 7s, Q3: 10s, A3: 12s
+    showMessage(0, 500);   // Q1: Кто руководит логистикой?
+    showMessage(1, 2000);  // A1: Сергей Волков
+    showMessage(2, 5000);  // Q2: Контакты?
+    showMessage(3, 7000);  // A2: email, телефон
+    showMessage(4, 10000); // Q3: Регламент перевозки?
+    showMessage(5, 12000); // A3: Ссылка на документ
+
+    // Restart after animation completes
+    const corpRestartTimer = setTimeout(() => {
+      setCorpAnimationKey(prev => prev + 1);
+    }, 18000);
+    allCorpTimers.push(corpRestartTimer);
+
+    return () => {
+      clearInterval(docInterval);
+      allCorpTimers.forEach(t => clearTimeout(t));
+    };
+  }, [corpAnimationKey]);
 
   return (
     <Slide backgroundColor={brandColors.dark}>
@@ -1581,21 +1689,6 @@ const Slide7Efficiency = () => {
         }}>
         {/* Header */}
         <div style={{ marginBottom: 48 }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '4px 12px',
-            borderRadius: 9999,
-            border: `1px solid ${brandColors.mint}4D`,
-            backgroundColor: `${brandColors.mint}0D`,
-            marginBottom: 16,
-          }}>
-            <BoltIcon size={12} />
-            <span style={{ fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.1em', color: brandColors.mint, fontWeight: 'bold' }}>
-              Deep Dive: Эффективность
-            </span>
-          </div>
           <h2 style={{ fontSize: 48, fontWeight: 'bold', marginBottom: 16, color: brandColors.white, lineHeight: 1.1 }}>
             Инструмент работы,<br />
             а не <span style={{ textDecoration: 'underline', textDecorationColor: `${brandColors.mint}80`, textUnderlineOffset: 4 }}>игрушка</span>
@@ -1666,8 +1759,7 @@ const Slide7Efficiency = () => {
                   left: 0,
                   right: 0,
                   padding: 16,
-                  backgroundColor: 'rgba(15,15,15,0.95)',
-                  backdropFilter: 'blur(10px)',
+                  backgroundColor: '#0f0f0f',
                   zIndex: 20,
                   borderBottom: '1px solid rgba(255,255,255,0.05)',
                 }}>
@@ -1708,11 +1800,17 @@ const Slide7Efficiency = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 16,
-                    transform: `translateY(-${(animationFrame / 100) * 20}%)`,
-                    transition: 'transform 0.1s linear',
+                    transform: `translateY(-${scrollOffset}%)`,
+                    transition: 'transform 0.3s ease-out',
                   }}>
                     {/* User Message */}
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      opacity: showUserMessage ? 1 : 0,
+                      transform: showUserMessage ? 'translateY(0)' : 'translateY(10px)',
+                      transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+                    }}>
                       <div style={{
                         backgroundColor: '#222',
                         color: '#E5E5E5',
@@ -1728,7 +1826,13 @@ const Slide7Efficiency = () => {
                     </div>
 
                     {/* AI Response */}
-                    <div style={{ display: 'flex', gap: 8 }}>
+                    <div style={{
+                      display: 'flex',
+                      gap: 8,
+                      opacity: showAiResponse ? 1 : 0,
+                      transform: showAiResponse ? 'translateY(0)' : 'translateY(10px)',
+                      transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+                    }}>
                       <div style={{
                         width: 24,
                         height: 24,
@@ -1766,8 +1870,29 @@ const Slide7Efficiency = () => {
                             <span>09:30 — 09:55</span>
                             <span style={{ color: brandColors.white }}>Встреча A (ч.2)</span>
                           </div>
-                          <div style={{ padding: '4px 0', textAlign: 'center', color: `${brandColors.mint}B3`, backgroundColor: `${brandColors.mint}0D`, borderRadius: 4 }}>
-                            ☕️ Перерыв 30 мин
+                          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '4px 0' }}>
+                            <span>10:00 — 10:30</span>
+                            <span style={{ color: `${brandColors.mint}B3` }}>☕️ Перерыв</span>
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '4px 0' }}>
+                            <span>10:30 — 11:30</span>
+                            <span style={{ color: brandColors.white }}>Встреча B</span>
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '4px 0' }}>
+                            <span>11:30 — 12:30</span>
+                            <span style={{ color: brandColors.white }}>Встреча C</span>
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '4px 0' }}>
+                            <span>12:30 — 13:30</span>
+                            <span style={{ color: `${brandColors.mint}B3` }}>🍽️ Обед</span>
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '4px 0' }}>
+                            <span>13:30 — 14:30</span>
+                            <span style={{ color: brandColors.white }}>Встреча D</span>
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0' }}>
+                            <span>14:30 — 16:30</span>
+                            <span style={{ color: brandColors.white }}>📊 Презентация</span>
                           </div>
                         </div>
                       </div>
@@ -1806,12 +1931,15 @@ const Slide7Efficiency = () => {
                   right: 0,
                   height: 4,
                   backgroundColor: brandColors.sky,
+                  borderRadius: '16px 16px 0 0',
                 }} />
                 <div style={{
                   padding: 16,
+                  paddingTop: 20,
                   backgroundColor: 'rgba(8,16,24,0.95)',
                   backdropFilter: 'blur(10px)',
                   borderBottom: `1px solid ${brandColors.sky}1A`,
+                  borderRadius: '16px 16px 0 0',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <GlobeIcon size={16} />
@@ -1820,29 +1948,133 @@ const Slide7Efficiency = () => {
                     </span>
                   </div>
                 </div>
-                <div style={{ padding: 16, fontFamily: 'monospace', fontSize: 9, color: brandColors.gray }}>
-                  <div style={{ marginBottom: 12 }}>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 4 }}>
-                      <svg width={12} height={12} fill="none" viewBox="0 0 24 24" stroke={brandColors.sky} style={{ marginTop: 2 }}>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                      </svg>
-                      <span style={{ color: brandColors.white, fontWeight: 'bold' }}>Мысль:</span>
+                <div style={{ position: 'relative', height: 160, overflow: 'hidden' }}>
+                  {/* Scrolling container */}
+                  <div style={{
+                    padding: 12,
+                    fontSize: 9,
+                    color: brandColors.gray,
+                    transform: `translateY(-${deepScrollOffset}px)`,
+                    transition: 'transform 0.5s ease-out',
+                  }}>
+                    {/* User Message */}
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      marginBottom: 10,
+                      opacity: showDeepUserMsg ? 1 : 0,
+                      transition: 'opacity 0.4s ease-out',
+                    }}>
+                      <div style={{
+                        backgroundColor: '#1a2530',
+                        color: '#E5E5E5',
+                        padding: '6px 10px',
+                        borderRadius: '8px 8px 2px 8px',
+                        fontSize: 9,
+                        border: '1px solid rgba(255,255,255,0.1)',
+                      }}>
+                        Тренды fintech 2026
+                      </div>
                     </div>
-                    <p style={{ paddingLeft: 20, borderLeft: '1px solid rgba(255,255,255,0.1)', lineHeight: 1.4 }}>
-                      Анализ трендов финтеха 2025. Фокус: итоги года.
-                    </p>
+
+                    {/* 5 Thought Blocks */}
+                    {[
+                      { thought: 'Анализ платёжных систем', sites: ['РБК', 'Банки.ру', 'Finversia'] },
+                      { thought: 'AI в банковском секторе', sites: ['Habr', 'CNews', 'Tadviser'] },
+                      { thought: 'Регулирование финтех', sites: ['ЦБ РФ', 'Consultant', 'Коммерсант'] },
+                      { thought: 'Embedded finance', sites: ['VC.ru', 'RB.ru', 'Rusbase'] },
+                      { thought: 'Инвестиции в стартапы', sites: ['DSight', 'Forbes', 'РВК'] },
+                    ].map((block, i) => (
+                      <div key={i} style={{
+                        marginBottom: 10,
+                        minHeight: 48,
+                        opacity: currentThought > i ? 1 : 0,
+                        transform: currentThought > i ? 'translateY(0)' : 'translateY(5px)',
+                        transition: 'opacity 0.4s ease-out, transform 0.4s ease-out',
+                      }}>
+                        {/* Thought */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                          <svg width={10} height={10} fill="none" viewBox="0 0 24 24" stroke={brandColors.sky}>
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                          </svg>
+                          <span style={{ color: brandColors.white, fontWeight: 'bold', fontSize: 8 }}>Мысль:</span>
+                          <span style={{ color: brandColors.gray, fontSize: 8 }}>{block.thought}</span>
+                        </div>
+                        {/* Search counter + sites - appear after 1s pause */}
+                        {showThoughtSearch[i] && (
+                          <>
+                            <div style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 6,
+                              marginBottom: 4,
+                              marginLeft: 16,
+                              opacity: 1,
+                              animation: 'fadeIn 0.3s ease-out',
+                            }}>
+                              {thoughtSearchCounts[i] < [12, 24, 35, 47, 58][i] ? (
+                                <svg width={8} height={8} viewBox="0 0 24 24" style={{ animation: 'spin 1s linear infinite' }}>
+                                  <circle cx="12" cy="12" r="10" stroke={brandColors.sky} strokeWidth="4" fill="none" opacity={0.25} />
+                                  <path fill={brandColors.sky} d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                </svg>
+                              ) : (
+                                <span style={{ color: brandColors.mint, fontSize: 8 }}>✔</span>
+                              )}
+                              <span style={{ fontSize: 8, color: thoughtSearchCounts[i] >= [12, 24, 35, 47, 58][i] ? brandColors.mint : brandColors.sky }}>
+                                Поиск на {thoughtSearchCounts[i] || 1} сайтах{thoughtSearchCounts[i] >= [12, 24, 35, 47, 58][i] ? '' : '...'}
+                              </span>
+                            </div>
+                            {/* Site icons with fade to right */}
+                            <div style={{
+                              display: 'flex',
+                              gap: 3,
+                              marginLeft: 16,
+                              position: 'relative',
+                              maskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
+                              WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
+                              animation: 'fadeIn 0.3s ease-out',
+                            }}>
+                              {block.sites.map((site, j) => (
+                                <span key={j} style={{
+                                  fontSize: 6,
+                                  padding: '2px 4px',
+                                  backgroundColor: `${brandColors.sky}1A`,
+                                  border: `1px solid ${brandColors.sky}33`,
+                                  borderRadius: 3,
+                                  color: brandColors.sky,
+                                  whiteSpace: 'nowrap',
+                                }}>{site}</span>
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    ))}
+
+                    {/* Completion */}
+                    <div style={{
+                      marginTop: 6,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      opacity: showDeepComplete ? 1 : 0,
+                      transition: 'opacity 0.4s ease-out',
+                    }}>
+                      <span style={{ color: brandColors.mint }}>✔</span>
+                      <span style={{ color: brandColors.white, fontWeight: 'bold', fontSize: 9 }}>Отчет готов</span>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: brandColors.sky, marginBottom: 8 }}>
-                    <svg width={12} height={12} viewBox="0 0 24 24" style={{ animation: 'spin 1s linear infinite' }}>
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" opacity={0.25} />
-                      <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    <span>Поиск на 54 сайтах...</span>
-                  </div>
-                  <div style={{ marginTop: 16, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <span style={{ color: brandColors.mint }}>✔</span>
-                    <span style={{ color: brandColors.white, fontWeight: 'bold' }}>Сборка отчета завершена.</span>
-                  </div>
+
+                  {/* Bottom fade gradient */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: 30,
+                    background: 'linear-gradient(to top, #081018 0%, transparent 100%)',
+                    pointerEvents: 'none',
+                  }} />
                 </div>
               </div>
 
@@ -1864,12 +2096,15 @@ const Slide7Efficiency = () => {
                   right: 0,
                   height: 4,
                   backgroundColor: brandColors.amber,
+                  borderRadius: '16px 16px 0 0',
                 }} />
                 <div style={{
                   padding: 16,
+                  paddingTop: 20,
                   backgroundColor: 'rgba(26,21,10,0.95)',
                   backdropFilter: 'blur(10px)',
                   borderBottom: `1px solid ${brandColors.amber}1A`,
+                  borderRadius: '16px 16px 0 0',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1894,116 +2129,248 @@ const Slide7Efficiency = () => {
                     </div>
                   </div>
 
-                  {/* Document Icons */}
-                  <div style={{ display: 'flex', gap: 8 }}>
+                  {/* Document Icons - reduced size */}
+                  <div style={{ display: 'flex', gap: 4 }}>
                     {['PDF', 'DOC', 'J'].map((type, i) => (
                       <div key={i} style={{
-                        width: 32,
-                        height: 40,
-                        backgroundColor: 'rgba(255,255,255,0.05)',
-                        borderRadius: 4,
+                        width: 16,
+                        height: 20,
+                        backgroundColor: docAnimIndex === i ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.05)',
+                        borderRadius: 2,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        border: '1px solid rgba(255,255,255,0.1)',
+                        border: docAnimIndex === i ? `1px solid ${brandColors.amber}66` : '1px solid rgba(255,255,255,0.1)',
+                        transform: docAnimIndex === i ? 'translateY(-1px)' : 'translateY(0)',
+                        transition: 'all 0.3s ease-out',
+                        boxShadow: docAnimIndex === i ? `0 2px 6px ${brandColors.amber}33` : 'none',
                       }}>
                         <div style={{
-                          width: 16,
-                          height: 20,
+                          width: 8,
+                          height: 10,
                           backgroundColor: i === 0 ? 'rgba(239,68,68,0.2)' : i === 1 ? 'rgba(59,130,246,0.2)' : `${brandColors.amber}33`,
-                          borderRadius: 2,
-                          marginBottom: 4,
+                          borderRadius: 1,
+                          marginBottom: 2,
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          fontSize: 6,
-                          color: brandColors.amber,
+                          fontSize: 3,
+                          color: docAnimIndex === i ? brandColors.amber : '#888',
                           fontWeight: 'bold',
+                          transition: 'color 0.3s ease-out',
                         }}>
                           {type === 'J' ? 'J' : ''}
                         </div>
-                        <div style={{ height: 2, width: 16, backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 1 }} />
+                        <div style={{
+                          height: 1,
+                          width: 8,
+                          backgroundColor: docAnimIndex === i ? `${brandColors.amber}B3` : 'rgba(255,255,255,0.2)',
+                          borderRadius: 1,
+                          transition: 'background-color 0.3s ease-out',
+                        }} />
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div style={{ padding: 16, fontSize: 9 }}>
-                  {/* User Question */}
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
-                    <div style={{
-                      backgroundColor: '#222',
-                      color: '#E5E5E5',
-                      padding: '8px 12px',
-                      borderRadius: '12px 12px 2px 12px',
-                      maxWidth: '90%',
-                      border: '1px solid rgba(255,255,255,0.05)',
-                      lineHeight: 1.4,
-                    }}>
-                      Какой руководитель отвечает за логистический центр?
-                    </div>
-                  </div>
-
-                  {/* AI Response with Contact */}
-                  <div style={{ display: 'flex', gap: 8 }}>
-                    <div style={{
-                      width: 24,
-                      height: 24,
-                      borderRadius: '50%',
-                      backgroundColor: `${brandColors.mint}1A`,
-                      border: `1px solid ${brandColors.mint}4D`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: brandColors.mint,
-                      fontSize: 8,
-                      fontWeight: 'bold',
-                      flexShrink: 0,
-                    }}>
-                      V
-                    </div>
-                    <div style={{
-                      backgroundColor: `${brandColors.mint}0D`,
+                <div style={{ position: 'relative', height: 120, overflow: 'hidden' }}>
+                  {/* Scrolling container */}
+                  <div
+                    ref={corpContentRef}
+                    style={{
                       padding: 12,
-                      borderRadius: '12px 12px 12px 2px',
-                      maxWidth: '95%',
-                      border: `1px solid ${brandColors.mint}33`,
-                      boxShadow: `0 0 20px ${brandColors.mint}1A`,
-                    }}>
+                      fontSize: 9,
+                      transform: `translateY(-${corpScrollOffset}px)`,
+                      transition: 'transform 0.5s ease-out',
+                    }}
+                  >
+                    {/* Q1: Кто руководит логистикой? */}
+                    {corpMessages.includes(0) && (
                       <div style={{
-                        backgroundColor: '#0f0f0f',
-                        padding: 8,
-                        borderRadius: 8,
-                        border: '1px solid rgba(255,255,255,0.1)',
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        marginBottom: 8,
+                        animation: 'fadeIn 0.4s ease-out',
                       }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                          <div style={{
-                            width: 24,
-                            height: 24,
-                            borderRadius: '50%',
-                            backgroundColor: '#444',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: 8,
-                            color: brandColors.white,
-                            fontWeight: 'bold',
-                          }}>
-                            AS
-                          </div>
-                          <div>
-                            <div style={{ color: brandColors.white, fontWeight: 'bold' }}>Алексей Смирнов</div>
-                            <div style={{ color: '#666', fontSize: 8 }}>Head of Logistics</div>
-                          </div>
-                        </div>
-                        <div style={{ paddingLeft: 4, borderLeft: `2px solid ${brandColors.mint}4D`, color: brandColors.gray }}>
-                          <div>📧 a.smirnov@vedunya.ai</div>
-                          <div>📞 вн. 4502</div>
+                        <div style={{
+                          backgroundColor: '#222',
+                          color: '#E5E5E5',
+                          padding: '6px 10px',
+                          borderRadius: '10px 10px 2px 10px',
+                          maxWidth: '90%',
+                          border: '1px solid rgba(255,255,255,0.05)',
+                          lineHeight: 1.3,
+                          fontSize: 8,
+                        }}>
+                          Кто руководит логистикой?
                         </div>
                       </div>
-                    </div>
+                    )}
+
+                    {/* A1: Сергей Волков */}
+                    {corpMessages.includes(1) && (
+                      <div style={{
+                        display: 'flex',
+                        gap: 6,
+                        marginBottom: 8,
+                        animation: 'fadeIn 0.4s ease-out',
+                      }}>
+                        <div style={{
+                          width: 18,
+                          height: 18,
+                          borderRadius: '50%',
+                          backgroundColor: `${brandColors.mint}1A`,
+                          border: `1px solid ${brandColors.mint}4D`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: brandColors.mint,
+                          fontSize: 7,
+                          fontWeight: 'bold',
+                          flexShrink: 0,
+                        }}>V</div>
+                        <div style={{
+                          backgroundColor: `${brandColors.mint}0D`,
+                          padding: '6px 10px',
+                          borderRadius: '10px 10px 10px 2px',
+                          border: `1px solid ${brandColors.mint}33`,
+                          fontSize: 8,
+                          color: brandColors.white,
+                          lineHeight: 1.3,
+                        }}>
+                          Сергей Волков, начальник департамента логистики
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Q2: Контакты? */}
+                    {corpMessages.includes(2) && (
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        marginBottom: 8,
+                        animation: 'fadeIn 0.4s ease-out',
+                      }}>
+                        <div style={{
+                          backgroundColor: '#222',
+                          color: '#E5E5E5',
+                          padding: '6px 10px',
+                          borderRadius: '10px 10px 2px 10px',
+                          border: '1px solid rgba(255,255,255,0.05)',
+                          fontSize: 8,
+                        }}>
+                          Какие у него контакты?
+                        </div>
+                      </div>
+                    )}
+
+                    {/* A2: Email и телефон */}
+                    {corpMessages.includes(3) && (
+                      <div style={{
+                        display: 'flex',
+                        gap: 6,
+                        marginBottom: 8,
+                        animation: 'fadeIn 0.4s ease-out',
+                      }}>
+                        <div style={{
+                          width: 18,
+                          height: 18,
+                          borderRadius: '50%',
+                          backgroundColor: `${brandColors.mint}1A`,
+                          border: `1px solid ${brandColors.mint}4D`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: brandColors.mint,
+                          fontSize: 7,
+                          fontWeight: 'bold',
+                          flexShrink: 0,
+                        }}>V</div>
+                        <div style={{
+                          backgroundColor: `${brandColors.mint}0D`,
+                          padding: '6px 10px',
+                          borderRadius: '10px 10px 10px 2px',
+                          border: `1px solid ${brandColors.mint}33`,
+                          fontSize: 8,
+                          color: brandColors.gray,
+                          lineHeight: 1.4,
+                        }}>
+                          <div>📧 s.volkov@vedunya.ru</div>
+                          <div>📞 вн. 2847</div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Q3: Регламент перевозки */}
+                    {corpMessages.includes(4) && (
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        marginBottom: 8,
+                        animation: 'fadeIn 0.4s ease-out',
+                      }}>
+                        <div style={{
+                          backgroundColor: '#222',
+                          color: '#E5E5E5',
+                          padding: '6px 10px',
+                          borderRadius: '10px 10px 2px 10px',
+                          border: '1px solid rgba(255,255,255,0.05)',
+                          fontSize: 8,
+                          lineHeight: 1.3,
+                        }}>
+                          Регламент перевозки Нерюнгри → СПб?
+                        </div>
+                      </div>
+                    )}
+
+                    {/* A3: Ссылка на документ */}
+                    {corpMessages.includes(5) && (
+                      <div style={{
+                        display: 'flex',
+                        gap: 6,
+                        marginBottom: 8,
+                        animation: 'fadeIn 0.4s ease-out',
+                      }}>
+                        <div style={{
+                          width: 18,
+                          height: 18,
+                          borderRadius: '50%',
+                          backgroundColor: `${brandColors.mint}1A`,
+                          border: `1px solid ${brandColors.mint}4D`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: brandColors.mint,
+                          fontSize: 7,
+                          fontWeight: 'bold',
+                          flexShrink: 0,
+                        }}>V</div>
+                        <div style={{
+                          backgroundColor: `${brandColors.mint}0D`,
+                          padding: '6px 10px',
+                          borderRadius: '10px 10px 10px 2px',
+                          border: `1px solid ${brandColors.mint}33`,
+                          fontSize: 8,
+                          lineHeight: 1.4,
+                        }}>
+                          <div style={{ color: brandColors.gray, marginBottom: 4 }}>Межрегиональные перевозки:</div>
+                          <div style={{ color: brandColors.sky, textDecoration: 'underline' }}>📄 Регламент_МР-2024.pdf</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
+
+                  {/* Bottom fade gradient */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: 20,
+                    background: 'linear-gradient(to top, #1a150a 0%, transparent 100%)',
+                    pointerEvents: 'none',
+                  }} />
                 </div>
               </div>
             </div>
@@ -2015,6 +2382,10 @@ const Slide7Efficiency = () => {
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(5px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
       </SlideFrame>
