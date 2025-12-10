@@ -5,6 +5,7 @@ export const metadata = {
   id: 'business-strategy',
   title: 'Business Strategy 2025',
   description: 'Strategic planning presentation with charts and data visualization',
+  slideCount: 7,
   createdAt: '2025-12-10',
   updatedAt: '2025-12-10',
 };

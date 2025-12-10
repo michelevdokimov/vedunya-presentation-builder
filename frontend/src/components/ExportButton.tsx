@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { apiClient } from '../api/client';
+import { useState, useEffect } from 'react';
+import { exportToPdf } from '../utils/pdfExport';
 import type { ExportButtonProps } from '../types';
 import '../styles/export.css';
 
@@ -7,6 +7,25 @@ export function ExportButton({ presentationId, onExportComplete }: ExportButtonP
   const [exporting, setExporting] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [slideCount, setSlideCount] = useState<number>(1);
+
+  // Load presentation metadata to get slide count
+  useEffect(() => {
+    const loadMetadata = async () => {
+      try {
+        const module = await import(`../presentations/${presentationId}.tsx`);
+        if (module.metadata?.slideCount) {
+          setSlideCount(module.metadata.slideCount);
+        }
+      } catch (err) {
+        console.warn('Could not load presentation metadata:', err);
+      }
+    };
+
+    if (presentationId) {
+      loadMetadata();
+    }
+  }, [presentationId]);
 
   const handleExport = async () => {
     setExporting(true);
@@ -14,61 +33,26 @@ export function ExportButton({ presentationId, onExportComplete }: ExportButtonP
     setError(null);
 
     try {
-      // Start export
-      const job = await apiClient.exportToPdf(presentationId);
-      setProgress(25);
+      console.log(`Starting export of ${slideCount} slides for: ${presentationId}`);
 
-      // Poll for status
-      const pollInterval = setInterval(async () => {
-        try {
-          const status = await apiClient.checkExportStatus(job.jobId);
+      // Export all slides
+      await exportToPdf([document.body], {
+        title: presentationId,
+        totalSlides: slideCount,
+        scale: 2,
+        onProgress: setProgress,
+      });
 
-          if (status.progress !== undefined) {
-            setProgress(status.progress);
-          }
-
-          if (status.status === 'completed') {
-            clearInterval(pollInterval);
-            setProgress(100);
-
-            // Download PDF
-            setTimeout(() => {
-              apiClient.downloadPdf(job.jobId);
-              setExporting(false);
-              setProgress(0);
-
-              if (onExportComplete && status.downloadUrl) {
-                onExportComplete(status.downloadUrl);
-              }
-            }, 500);
-          } else if (status.status === 'failed') {
-            clearInterval(pollInterval);
-            setError(status.error || 'Export failed');
-            setExporting(false);
-            setProgress(0);
-          }
-        } catch (err) {
-          clearInterval(pollInterval);
-          setError(err instanceof Error ? err.message : 'Export failed');
-          setExporting(false);
-          setProgress(0);
-        }
-      }, 1000);
-
-      // Timeout after 2 minutes
-      setTimeout(() => {
-        clearInterval(pollInterval);
-        if (exporting) {
-          setError('Export timeout');
-          setExporting(false);
-          setProgress(0);
-        }
-      }, 120000);
+      if (onExportComplete) {
+        onExportComplete('client-side-export');
+      }
 
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to start export');
+      console.error('Export error:', err);
+      setError(err instanceof Error ? err.message : 'Export failed');
+    } finally {
       setExporting(false);
-      setProgress(0);
+      setTimeout(() => setProgress(0), 1000);
     }
   };
 
@@ -79,7 +63,7 @@ export function ExportButton({ presentationId, onExportComplete }: ExportButtonP
         onClick={handleExport}
         disabled={exporting}
         aria-label="Export to PDF"
-        title="Export to PDF"
+        title={`Export to PDF (${slideCount} slides)`}
       >
         {exporting ? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="export-spinner">

@@ -5,6 +5,7 @@ export const metadata = {
   id: 'product-launch',
   title: 'Product Launch Event',
   description: 'Marketing presentation for new product announcement',
+  slideCount: 8,
   createdAt: '2025-12-10',
   updatedAt: '2025-12-10',
 };

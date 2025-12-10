@@ -6,7 +6,7 @@ Handles PDF export of presentations using Playwright for browser automation.
 import asyncio
 import uuid
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 from playwright.async_api import async_playwright
@@ -49,7 +49,7 @@ class ExportService:
             presentation_id=presentation_id,
             status=ExportJobStatus.PENDING,
             progress=0,
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )
 
         self.jobs[job_id] = job
@@ -102,7 +102,18 @@ class ExportService:
 
             # Use fresh playwright instance for each export to avoid stale browser issues
             async with async_playwright() as p:
-                browser = await p.chromium.launch(headless=True)
+                # Launch with robust options for macOS compatibility
+                browser = await p.chromium.launch(
+                    headless=True,
+                    # Additional args for macOS stability
+                    args=[
+                        '--disable-blink-features=AutomationControlled',
+                        '--disable-dev-shm-usage',  # Avoid shared memory issues
+                        '--no-sandbox',  # Required for some macOS configurations
+                        '--disable-setuid-sandbox',
+                        '--disable-gpu',  # Avoid GPU acceleration issues
+                    ]
+                )
 
                 # Create browser context and page
                 context = await browser.new_context(
@@ -147,13 +158,27 @@ class ExportService:
             job.status = ExportJobStatus.COMPLETED
             job.progress = 100
             job.download_url = f"/api/exports/{job_id}/download"
-            job.completed_at = datetime.utcnow()
+            job.completed_at = datetime.now(timezone.utc)
 
         except Exception as e:
             # Update job with error
             job.status = ExportJobStatus.FAILED
-            job.error = str(e)
-            job.completed_at = datetime.utcnow()
+
+            # Provide detailed error message for common issues
+            error_msg = str(e)
+            if "Target page, context or browser has been closed" in error_msg:
+                error_msg = (
+                    "Browser crashed during export. This may indicate Playwright/Chromium "
+                    "compatibility issues with your system. Try updating Playwright: "
+                    "`playwright install --force chromium`"
+                )
+            elif "Executable doesn't exist" in error_msg:
+                error_msg = (
+                    "Chromium browser not found. Run: `playwright install chromium`"
+                )
+
+            job.error = error_msg
+            job.completed_at = datetime.now(timezone.utc)
             print(f"Export job {job_id} failed: {e}")
             import traceback
             traceback.print_exc()
@@ -169,7 +194,7 @@ class ExportService:
             Number of jobs cleaned up
         """
         cleaned = 0
-        cutoff_time = datetime.utcnow().timestamp() - (max_age_hours * 3600)
+        cutoff_time = datetime.now(timezone.utc).timestamp() - (max_age_hours * 3600)
 
         job_ids_to_remove = []
 

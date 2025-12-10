@@ -5,6 +5,7 @@ export const metadata = {
   id: 'welcome',
   title: 'Welcome to Vedunya',
   description: 'Example presentation demonstrating Spectacle components in 16:9 format',
+  slideCount: 4,
   createdAt: '2025-12-10',
   updatedAt: '2025-12-10',
 };

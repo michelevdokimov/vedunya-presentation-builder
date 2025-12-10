@@ -5,6 +5,7 @@ export const metadata = {
   id: 'tech-conference',
   title: 'Modern Web Development',
   description: 'Technical conference presentation about web technologies',
+  slideCount: 8,
   createdAt: '2025-12-10',
   updatedAt: '2025-12-10',
 };
