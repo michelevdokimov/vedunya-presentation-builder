@@ -9,8 +9,12 @@ export const metadata = {
   updatedAt: '2025-12-10',
 };
 
-// 16:9 theme configuration
+// 16:9 theme configuration (1920x1080)
 const theme = {
+  size: {
+    width: 1920,
+    height: 1080,
+  },
   colors: {
     primary: '#6366f1',
     secondary: '#8b5cf6',

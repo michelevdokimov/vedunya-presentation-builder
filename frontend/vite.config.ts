@@ -19,4 +19,29 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    // Optimize build output
+    target: 'es2015',
+    minify: 'esbuild',
+    sourcemap: false,
+
+    // Code splitting optimization
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split vendor libraries for better caching
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'spectacle': ['spectacle'],
+        },
+      },
+    },
+
+    // Chunk size warnings
+    chunkSizeWarningLimit: 1000,
+  },
+
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom', 'spectacle'],
+  },
 })
