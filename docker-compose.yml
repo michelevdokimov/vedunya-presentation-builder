@@ -64,8 +64,10 @@ services:
       retries: 3
       start_period: 5s
     environment:
-      # Coolify will configure domain routing automatically via this variable
-      - SERVICE_FQDN_SLIDES_80
+      # Coolify magic variable - domain configured in Coolify UI
+      # If frontend listens on port 80, just set domain in UI
+      # If different port, set domain as example.com:PORT in UI
+      - SERVICE_FQDN_FRONTEND
     labels:
       - coolify.managed=true
 
