@@ -65,6 +65,9 @@ services:
       start_period: 5s
     labels:
       - coolify.managed=true
+      # Traefik routing - Coolify will set the domain automatically
+      - traefik.enable=true
+      - traefik.http.services.vedunya-frontend.loadbalancer.server.port=80
 
 # ============================================
 # Networks
