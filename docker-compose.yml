@@ -1,0 +1,88 @@
+# ============================================
+# Vedunya Presentation Builder
+# Docker Compose for Coolify + Traefik
+# ============================================
+#
+# Deployment:
+#   - Coolify на сервере управления подключается по SSH
+#   - Traefik автоматически настраивает домен и SSL
+#   - Backend и Frontend общаются через Docker network
+#
+# Volumes naming convention для Coolify:
+#   - Используем именованные volumes (не bind mounts)
+#   - Имена volumes должны быть уникальными для проекта
+#
+# ============================================
+
+services:
+  # ----------------------------------------
+  # Backend: FastAPI + Playwright
+  # ----------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: vedunya-backend
+    restart: unless-stopped
+    networks:
+      - coolify
+      - vedunya-internal
+    volumes:
+      # Named volume for PDF exports
+      - vedunya-exports:/app/exports
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    labels:
+      - coolify.managed=true
+
+  # ----------------------------------------
+  # Frontend: Nginx + Vite build
+  # ----------------------------------------
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: vedunya-frontend
+    restart: unless-stopped
+    networks:
+      - coolify
+      - vedunya-internal
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    labels:
+      - coolify.managed=true
+
+# ============================================
+# Networks
+# ============================================
+networks:
+  # Coolify external network (created by Coolify/Traefik)
+  coolify:
+    external: true
+  
+  # Internal network for backend-frontend communication
+  vedunya-internal:
+    driver: bridge
+
+# ============================================
+# Volumes
+# ============================================
+volumes:
+  # Persistent storage for exported PDFs
+  vedunya-exports:
+    name: vedunya-exports
+    driver: local
