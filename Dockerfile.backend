@@ -5,7 +5,7 @@
 
 FROM python:3.11-slim AS base
 
-# Install system dependencies for Playwright
+# Install system dependencies for Playwright and healthcheck
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     curl \
@@ -35,16 +35,18 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 WORKDIR /app
 
-# Copy dependency files first for layer caching
+# Copy dependency files from backend directory
 COPY backend/pyproject.toml backend/uv.lock ./
 
-# Install Python dependencies
+# Create virtual environment and install dependencies
+RUN uv venv /app/.venv
+ENV PATH="/app/.venv/bin:$PATH"
 RUN uv sync --frozen --no-dev
 
 # Install Playwright browsers
-RUN uv run playwright install chromium
+RUN playwright install chromium
 
-# Copy application code
+# Copy application code from backend directory
 COPY backend/ ./
 
 # Create exports directory
@@ -53,9 +55,9 @@ RUN mkdir -p /app/exports
 # Expose port
 EXPOSE 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/api/health || exit 1
+# Health check using wget (more reliable in slim images)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:8000/api/health || exit 1
 
 # Run the application
-CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
