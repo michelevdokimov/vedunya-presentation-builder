@@ -18,11 +18,16 @@ from routes.exports import router as exports_router, set_export_service
 
 
 # Configuration
-BASE_DIR = Path(__file__).resolve().parent.parent
-FRONTEND_DIR = BASE_DIR / "frontend"
-PRESENTATIONS_DIR = FRONTEND_DIR / "src" / "presentations"
-EXPORTS_DIR = BASE_DIR / "backend" / "exports"
+BASE_DIR = Path(__file__).resolve().parent
+EXPORTS_DIR = BASE_DIR / "exports"
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+
+# Presentations directory - configurable for Docker deployment
+# Default: ../frontend/src/presentations (for local dev)
+PRESENTATIONS_DIR = Path(os.getenv(
+    "PRESENTATIONS_DIR",
+    str(BASE_DIR.parent / "frontend" / "src" / "presentations")
+))
 
 
 # Lifespan context manager for startup/shutdown

@@ -49,6 +49,12 @@ RUN playwright install chromium
 # Copy application code from backend directory
 COPY backend/ ./
 
+# Copy presentations from frontend for scanning
+COPY frontend/src/presentations /app/presentations
+
+# Set presentations directory for Docker
+ENV PRESENTATIONS_DIR=/app/presentations
+
 # Create exports directory
 RUN mkdir -p /app/exports
 
