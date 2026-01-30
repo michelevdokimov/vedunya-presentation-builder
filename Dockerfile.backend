@@ -61,9 +61,9 @@ RUN mkdir -p /app/exports
 # Expose port
 EXPOSE 8000
 
-# Health check using wget (more reliable in slim images)
+# Health check using wget with GET request
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:8000/api/health || exit 1
+    CMD wget -q -O /dev/null http://localhost:8000/api/health || exit 1
 
 # Run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
